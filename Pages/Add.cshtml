@@ -1,0 +1,40 @@
+@page
+@model AddModel
+@{
+    ViewData["Title"] = "Add Package";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Amarillo Apartment Package Management</h1>
+    <p>Add Package</p>
+</div>
+<form method="post" id="form">
+    <div class="form-group">
+        <label asp-for="ResidentSelected" class="control-label"></label>
+        <input type="text" asp-for="ResidentSelected" class="form-control" list="residents2"/>
+        <datalist id="residents2">
+            @foreach (var item in @Model.residents) {
+                <option value="@item.FullName">@item.FullName</option>
+            }
+        </datalist>
+        <span asp-validation-for="ResidentSelected" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PostingID" class="control-label"></label>
+        <select class="form-control" asp-for="PostingID" asp-items="Model.PostingDropDown" form="form">
+            <option value="">--Select Posting--</option>  
+        </select>
+        <span asp-validation-for="PostingID" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DeliveryDate" class="control-label"></label>
+        <input asp-for="DeliveryDate" class="form-control" />
+        <span asp-validation-for="DeliveryDate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Submit" class="btn btn-primary" />
+    </div>
+</form>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
